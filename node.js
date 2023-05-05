@@ -1,9 +1,9 @@
 /*----- constants -----*/
 const AUDIO = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-simple-countdown-922.mp3');
 const RPS_LOOKUP = { //Object so we can look up the proper image based on whether it is r p or s 
-    r: 'imgs/rock.png',
-    p: 'imgs/paper.png',
-    s: 'imgs/scissors.png'
+    p: {img: 'imgs/paper.png', beats: 'r'},
+    r: {img: 'imgs/rock.png', beats: 's'},
+    s: {img: 'imgs/scissors.png', beats: 'p'}
 };
 
 /*----- app's state (variables) -----*/
@@ -37,10 +37,13 @@ function handleChoice(evt) {
 };
 
 function getWinner() { // we need figure out the winning combinations and return p if the player won, c if the computer won and t if it's a tie. 
-    
+    //CHeck for tie
+    if (results.p === results.c) return 't';
+    //if what the player has beats what the computer has, the player wins.
+    return RPS_LOOKUP[results.p].beats === results.c ? 'p' : 'c';
 };
 
-// Function to generate random computer choice by assigning the images object to a variable and using Math.random to generate a random number and using it to select the object index
+// Function to generate random computer choice by assigning the images object to a variable and using Math.random to generate a random number which we use to select the object index
 function getRandomRPS() {
      const rps = Object.keys(RPS_LOOKUP);
      const rndIdx = Math.floor(Math.random() * rps.length);
@@ -73,8 +76,8 @@ function renderScores() {
     }
 };   
 function renderResults() {
-  pResultEl.src = RPS_LOOKUP[results.p];
-  cResultEl.src = RPS_LOOKUP[results.c];
+  pResultEl.src = RPS_LOOKUP.img[results.p];
+  cResultEl.src = RPS_LOOKUP.img[results.c];
 };
  //Render function should transfer/visualise all state to the dom
 function render() {
