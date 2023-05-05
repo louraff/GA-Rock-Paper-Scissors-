@@ -32,7 +32,7 @@ function handleChoice(evt) {
    results.p = evt.target.innerText.toLowerCase(); 
    results.c = getRandomRPS();
    winner = getWinner();
-
+   scores[winner] += 1;
    render(); 
 };
 
@@ -76,8 +76,8 @@ function renderScores() {
     }
 };   
 function renderResults() {
-  pResultEl.src = RPS_LOOKUP.img[results.p];
-  cResultEl.src = RPS_LOOKUP.img[results.c];
+  pResultEl.src = RPS_LOOKUP[results.p].img;
+  cResultEl.src = RPS_LOOKUP[results.c].img;
 };
  //Render function should transfer/visualise all state to the dom
 function render() {
