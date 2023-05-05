@@ -1,5 +1,10 @@
 /*----- constants -----*/
 const AUDIO = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-simple-countdown-922.mp3');
+const RPS_LOOKUP = { //Object so we can look up the proper image based on whether it is r p or s 
+    r: 'imgs/rock.png',
+    p: 'imgs/paper.png',
+    s: 'imgs/scissors.png'
+};
 
 /*----- app's state (variables) -----*/
 let scores; // Object key of 'p' -> player score
@@ -16,6 +21,7 @@ let winner; // String 'p' if the player wins, 't' for tie, 'c' if computer wins
 
 /*----- functions -----*/
 init()
+
 //INITIALISE ALL STATE THEN CALL RENDER
 function init() {
   scores = {
@@ -31,20 +37,23 @@ function init() {
 
   winner = 't';
 
-function renderScores() {
-  for (let key in scores) { // for in loop to iterate over keys in an object
-    const scoreEl = document.getElementById(`${key}-score`)
-    scoreEl.innerText = scores[key];
-  }
+  render();
+
 };
 
+function renderScores() {
+    for (let key in scores) { // for in loop to iterate over keys in an object
+      const scoreEl = document.getElementById(`${key}-score`);
+      scoreEl.innerText = scores[key];
+    }
+};   
 function renderResults() {
   
 };
 
-  function render() {
+function render() {
     renderScores();
     renderResults();
-  }
 };
+
 
