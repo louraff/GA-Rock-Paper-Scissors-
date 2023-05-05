@@ -93,6 +93,7 @@ function render() {
 
 function renderCountdown(cb) {
     let count = 3
+    AUDIO.currentTime = 0;
     AUDIO.play();
     countdownEl.style.visibility = 'visible';
     countdownEl.innerText = count;
