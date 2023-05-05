@@ -14,7 +14,8 @@ let results; // Object key of 'p' for the player result
 let winner; // String 'p' if the player wins, 't' for tie, 'c' if computer wins
 
 /*----- cached element references -----*/
-
+const pResultEl = document.getElementById('p-result');
+const cResultEl = document.getElementById('c-result');
 
 /*----- event listeners -----*/
 
@@ -48,7 +49,8 @@ function renderScores() {
     }
 };   
 function renderResults() {
-  
+  pResultEl.src = RPS_LOOKUP[results.p];
+  cResultEl.src = RPS_LOOKUP[results.c];
 };
 
 function render() {
