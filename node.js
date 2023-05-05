@@ -16,6 +16,8 @@ let winner; // String 'p' if the player wins, 't' for tie, 'c' if computer wins
 /*----- cached element references -----*/
 const pResultEl = document.getElementById('p-result');
 const cResultEl = document.getElementById('c-result');
+const countdownEl = document.getElementById('countdown');
+
 
 /*----- event listeners -----*/
 document.querySelector('main').addEventListener('click', handleChoice); // name the event listener functions with the prefix 'handle' so you know it's an event listener function
@@ -78,9 +80,30 @@ function renderScores() {
 function renderResults() {
   pResultEl.src = RPS_LOOKUP[results.p].img;
   cResultEl.src = RPS_LOOKUP[results.c].img;
+  pResultEl.style.borderColor = winner === 'p' ? 'orange' : 'white'
+  cResultEl.style.borderColor = winner === 'c' ? 'orange' : 'white'
 };
  //Render function should transfer/visualise all state to the dom
 function render() {
-    renderScores();
-    renderResults();
+    renderCountdown(function() {
+        renderScores();
+        renderResults();
+    });
 };
+
+function renderCountdown(cb) {
+    let count = 3
+    AUDIO.play();
+    countdownEl.style.visibility = 'visible';
+    countdownEl.innerText = count;
+    const timerId = setInterval(function() {
+        count--;
+        if (count) {
+            countdownEl.innerText = count;
+        } else {
+            clearInterval(timerId); //stops the timer 
+            countdownEl.style.visibility = 'hidden';
+            cb()
+        }
+    }, 1000)
+}
